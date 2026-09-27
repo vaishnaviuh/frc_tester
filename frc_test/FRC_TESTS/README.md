@@ -1,14 +1,14 @@
-# FRC 10-Pin General-Purpose Pinout Tester
+# FRC (Flat Ribbon Cable) 10-Pin General-Purpose Pinout Tester
 
-ESP32-based rig for checking 10-conductor FRC harnesses/cables/adapters (2x5,
-0.1" pitch IDC-style connectors, as used for RoboRIO DIO/PWM/relay headers
-etc.) against an arbitrary expected pinout — not just straight-through
+ESP32-based rig for checking 10-conductor flat ribbon cable (FRC) assemblies
+and adapters (2x5, 0.1" pitch IDC connectors) against an arbitrary expected
+pinout — not just straight-through
 cables, but crossed, remapped, split (fan-out), or intentionally-open pins.
 
 ## How it works
 
 - Two female 10-pin headers (**Header A** = drive side, **Header B** = sense
-  side) are mounted on the protoboard and wired to the ESP32.
+  side) are mounted on the breadboard and wired to the ESP32.
 - The cable/harness/adapter under test is plugged in between Header A and
   Header B.
 - Firmware drives one Header-A pin HIGH at a time (all other drive pins set
@@ -57,10 +57,10 @@ non-standard harness.
 ## BOM
 
 - 1x ESP32 dev board (WROOM-32 or similar, 30/38-pin)
-- 2x female 2x5 (10-pin) 0.1" IDC box headers (or the specific FRC connector
+- 2x female 2x5 (10-pin) 0.1" IDC box headers (or the specific IDC connector
   you're testing — shrouded box header recommended so the cable is keyed)
 - 10x 10k resistors (pulldowns for Header B sense lines)
-- General-purpose protoboard, headers/sockets for the ESP32, hookup wire
+- Solderless breadboard, jumper wires
 
 ## Pinout
 
@@ -86,10 +86,11 @@ one).
 Wire Header A pin *N* directly to its listed GPIO. Wire Header B pin *N* to
 its listed GPIO **and** to GND through a 10k resistor at that pin.
 
-If your FRC connector pinout reserves any of the 10 pins for power/ground
-(check the actual connector you're testing — some 10-pin FRC headers carry
-+5V/+12V and GND on specific pins rather than 10 signal lines), do **not**
-wire the ESP32 GPIO directly to those pins. Leave power/ground pins
+If the cable you're testing comes from a system where some of the 10
+conductors carry power/ground (e.g. +5V/+12V and GND on specific pins rather
+than 10 signal lines), do **not** wire the ESP32 GPIO directly to those pins.
+This only matters if you test the cable while it's still attached to that
+system; a bare, unpowered cable is safe to test on all 10 pins. Leave power/ground pins
 unconnected on the tester or add series resistors + a simple voltage divider
 so you're only sensing presence, not backfeeding the ESP32.
 
