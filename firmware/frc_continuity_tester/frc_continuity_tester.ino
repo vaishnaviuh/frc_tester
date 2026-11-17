@@ -1,7 +1,7 @@
 
 // FRC 10-pin general-purpose continuity/pinout tester
 // Header A (drive) -> cable/adapter/harness under test -> Header B (sense)
-// See ../../README.md for wiring/pinout.
+// See README.md at the repo root for wiring/pinout.
 //
 // Unlike a plain continuity checker, this does NOT assume a straight-through
 // 1:1 cable. Each drive pin has a configurable *expected* set of sense pins
